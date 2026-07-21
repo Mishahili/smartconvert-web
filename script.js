@@ -90,7 +90,16 @@ dropZone.addEventListener(
             handleFile(file);
 
         }
+        
+if(file.size > 50 * 1024 * 1024){
 
+alert(
+"Файл слишком большой. Максимум 50 МБ"
+);
+
+return;
+
+}
     }
 );
 
