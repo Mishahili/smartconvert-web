@@ -280,30 +280,257 @@ const convertButton =
 document.querySelector(
     ".convert-button"
 );
+const convertButton =
+document.getElementById(
+    "convertButton"
+);
+
+
+const preview =
+document.getElementById(
+    "preview"
+);
 
 
 
 convertButton.addEventListener(
-    "click",
-    ()=>{
+"click",
+async ()=>{
 
 
-        if(!currentFile){
+if(!currentFile){
 
-            alert(
-                "Сначала выберите файл"
-            );
-
-            return;
-
-        }
-
-
-
-        alert(
-            "Конвертация будет добавлена в следующей версии 🚀"
-        );
-
-
-    }
+alert(
+"Выберите файл"
 );
+
+return;
+
+}
+
+
+
+const extension =
+currentFile.name
+.split(".")
+.pop()
+.toLowerCase();
+
+
+
+if(
+extension === "jpg" ||
+extension === "jpeg" ||
+extension === "png"
+){
+
+await imageToPDF(currentFile);
+
+}
+
+
+
+else if(extension === "pdf"){
+
+await pdfToImage(currentFile);
+
+}
+
+
+
+else{
+
+alert(
+"Этот формат появится позже"
+);
+
+}
+
+
+
+});
+
+
+
+
+
+// =================
+// IMAGE -> PDF
+// =================
+
+
+async function imageToPDF(file){
+
+
+const bytes =
+await file.arrayBuffer();
+
+
+const pdf =
+await PDFLib.PDFDocument.create();
+
+
+
+const image =
+file.type === "image/png"
+
+?
+
+await pdf.embedPng(bytes)
+
+:
+
+await pdf.embedJpg(bytes);
+
+
+
+const page =
+pdf.addPage();
+
+
+
+const size =
+image.scale(1);
+
+
+
+page.drawImage(
+image,
+{
+
+x:50,
+
+y:50,
+
+width:
+size.width,
+
+height:
+size.height
+
+}
+
+);
+
+
+
+const result =
+await pdf.save();
+
+
+
+saveAs(
+new Blob(
+[result],
+{
+type:
+"application/pdf"
+}
+),
+"converted.pdf"
+);
+
+
+
+}
+
+
+
+
+
+// =================
+// PDF -> IMAGE
+// =================
+
+
+async function pdfToImage(file){
+
+
+const data =
+await file.arrayBuffer();
+
+
+const pdf =
+await pdfjsLib
+.getDocument(
+{
+data
+}
+)
+.promise;
+
+
+
+const page =
+await pdf.getPage(1);
+
+
+
+const viewport =
+page.getViewport(
+{
+scale:2
+}
+);
+
+
+
+const canvas =
+document.createElement(
+"canvas"
+);
+
+
+
+const context =
+canvas.getContext(
+"2d"
+);
+
+
+
+canvas.width =
+viewport.width;
+
+
+canvas.height =
+viewport.height;
+
+
+
+await page.render({
+
+canvasContext:
+context,
+
+viewport
+
+}).promise;
+
+
+
+canvas.toBlob(
+(blob)=>{
+
+
+saveAs(
+blob,
+"page.png"
+);
+
+
+}
+);
+
+
+
+preview.innerHTML="";
+
+
+preview.appendChild(
+canvas
+);
+
+
+
+}
