@@ -338,13 +338,7 @@ await pdfToImage(currentFile);
 
 
 
-else{
 
-alert(
-"Этот формат появится позже"
-);
-
-}
 
 
 
@@ -529,6 +523,121 @@ preview.innerHTML="";
 
 preview.appendChild(
 canvas
+);
+
+
+
+}
+
+// =================
+// DOCX -> PDF
+// =================
+
+
+async function docxToPDF(file){
+
+
+const arrayBuffer =
+await file.arrayBuffer();
+
+
+
+const result =
+await mammoth.extractRawText(
+{
+arrayBuffer
+}
+);
+
+
+
+const text =
+result.value;
+
+
+
+const pdf =
+await PDFLib.PDFDocument.create();
+
+
+
+let page =
+pdf.addPage();
+
+
+
+const fontSize = 14;
+
+
+let y =
+750;
+
+
+
+const lines =
+text.split("\n");
+
+
+
+for(
+const line of lines
+){
+
+
+if(y < 50){
+
+page =
+pdf.addPage();
+
+y =
+750;
+
+}
+
+
+
+page.drawText(
+line.substring(0,90),
+{
+
+x:50,
+
+y:y,
+
+size:
+fontSize
+
+}
+
+);
+
+
+y -= 20;
+
+
+}
+
+
+
+const bytes =
+await pdf.save();
+
+
+
+saveAs(
+
+new Blob(
+[
+bytes
+],
+{
+type:
+"application/pdf"
+}
+),
+
+"document.pdf"
+
 );
 
 
