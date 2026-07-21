@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SmartConvert — Умный конвертер документов</title>
+
+    <meta name="description" content="Бесплатный конвертер PDF, Word, изображений и документов прямо в браузере. Без загрузки файлов на сервер.">
+
+    <meta name="theme-color" content="#111827">
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="icon" href="img/logo.svg">
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="logo">
+        <span>⚡</span>
+        SmartConvert
+    </div>
+
+    <button id="themeButton" class="theme-button">
+        🌙
+    </button>
+
+</header>
+
+
+<main>
+
+<section class="hero">
+
+    <h1>
+        Умный конвертер документов
+    </h1>
+
+    <p>
+        Бесплатно преобразуйте PDF, Word, изображения и другие форматы
+        прямо в браузере.
+    </p>
+
+    <p class="security">
+        🔒 Ваши файлы не покидают устройство
+    </p>
+
+
+    <div class="upload-box" id="dropZone">
+
+        <div class="upload-icon">
+            📄
+        </div>
+
+
+        <h2>
+            Перетащите файл сюда
+        </h2>
+
+
+        <p>
+            или
+        </p>
+
+
+        <label class="upload-button">
+
+            Выбрать файл
+
+            <input 
+                type="file"
+                id="fileInput"
+                hidden
+                accept="
+                .pdf,
+                .doc,
+                .docx,
+                .jpg,
+                .jpeg,
+                .png,
+                .webp
+                "
+            >
+
+        </label>
+
+
+        <small>
+            PDF • DOCX • JPG • PNG • WEBP
+        </small>
+
+    </div>
+
+
+    <div id="fileInfo" class="file-card hidden">
+
+        <h3>
+            Информация о файле
+        </h3>
+
+
+        <div class="file-data">
+
+            <p>
+                📄 Имя:
+                <span id="fileName">
+                —
+                </span>
+            </p>
+
+
+            <p>
+                📦 Размер:
+                <span id="fileSize">
+                —
+                </span>
+            </p>
+
+
+            <p>
+                🔎 Тип:
+                <span id="fileType">
+                —
+                </span>
+            </p>
+
+        </div>
+
+
+        <button class="convert-button">
+            Конвертировать
+        </button>
+
+
+    </div>
+
+
+</section>
+
+
+
+<section class="features">
+
+
+<h2>
+    Возможности SmartConvert
+</h2>
+
+
+<div class="cards">
+
+
+<div class="card">
+    <span>📄</span>
+    <h3>PDF</h3>
+    <p>
+        Работа с PDF документами
+    </p>
+</div>
+
+
+<div class="card">
+    <span>📝</span>
+    <h3>Word</h3>
+    <p>
+        Конвертация документов
+    </p>
+</div>
+
+
+<div class="card">
+    <span>🖼️</span>
+    <h3>Изображения</h3>
+    <p>
+        JPG, PNG, WEBP
+    </p>
+</div>
+
+
+<div class="card">
+    <span>🔒</span>
+    <h3>Безопасность</h3>
+    <p>
+        Всё происходит локально
+    </p>
+</div>
+
+
+</div>
+
+
+</section>
+
+
+</main>
+
+
+
+<footer>
+
+<p>
+© 2026 SmartConvert
+</p>
+
+<p>
+Работает прямо в браузере
+</p>
+
+</footer>
+
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
