@@ -96,6 +96,38 @@ if(file.size > 50 * 1024 * 1024){
 alert(
 "Файл слишком большой. Максимум 50 МБ"
 );
+    const allowed = [
+
+"pdf",
+"doc",
+"docx",
+"jpg",
+"jpeg",
+"png",
+"webp"
+
+];
+
+
+const ext =
+file.name
+.split(".")
+.pop()
+.toLowerCase();
+
+
+
+if(
+!allowed.includes(ext)
+){
+
+alert(
+"Формат не поддерживается"
+);
+
+return;
+
+}
 
 return;
 
