@@ -29,7 +29,7 @@ fileInput.addEventListener(
 
         if(this.files.length > 0){
 
-            handleFile(this.files[0]);
+            handleMultipleFiles(this.files);
 
         }
 
@@ -643,3 +643,113 @@ type:
 
 
 }
+// =======================
+// Несколько файлов
+// =======================
+
+
+function handleMultipleFiles(files){
+
+
+if(files.length > 1){
+
+alert(
+"Выбрано файлов: "
++
+files.length
+);
+
+
+}
+
+
+handleFile(
+files[0]
+);
+
+
+}// =======================
+// MERGE PDF
+// =======================
+
+
+document
+.getElementById("mergePDF")
+.addEventListener(
+"click",
+async function(){
+
+
+if(!fileInput.files.length){
+
+alert(
+"Выберите PDF файлы"
+);
+
+return;
+
+}
+
+
+const mergedPDF =
+await PDFLib.PDFDocument.create();
+
+
+
+for(
+const file of fileInput.files
+){
+
+
+const bytes =
+await file.arrayBuffer();
+
+
+
+const pdf =
+await PDFLib.PDFDocument.load(
+bytes
+);
+
+
+
+const pages =
+await mergedPDF.copyPages(
+pdf,
+pdf.getPageIndices()
+);
+
+
+
+pages.forEach(
+(page)=>
+mergedPDF.addPage(page)
+);
+
+
+}
+
+
+
+const result =
+await mergedPDF.save();
+
+
+
+saveAs(
+
+new Blob(
+[result],
+{
+type:
+"application/pdf"
+}
+),
+
+"merged.pdf"
+
+);
+
+
+
+});
